@@ -4,12 +4,12 @@ Take a look through this demo app to compare the differences between sequelize a
 
 ## Mongoose Documentation 
 
-![Link](https://mongoosejs.com/docs/)
+[Link](https://mongoosejs.com/docs/)
 
 ## Sequelize Documentation
 
-![Link](https://sequelize.org/docs/v6/getting-started/)
+[Link](https://sequelize.org/docs/v6/getting-started/)
 
 ## Handlebars Documentation
 
-![Link](https://handlebarsjs.com/guide/)
+[Link](https://handlebarsjs.com/guide/)
