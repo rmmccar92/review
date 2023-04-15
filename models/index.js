@@ -25,6 +25,6 @@
 // !⬆️ Sequelize Associations ⬇️ Mongoose doesn't need these :D
 
 const User = require("./User");
-const Peep = require("./Post");
+const Peep = require("./Peep");
 const Comment = require("./Comment");
 module.exports = { User, Peep, Comment };

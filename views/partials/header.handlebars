@@ -3,17 +3,14 @@
   <nav class='navbar'>
     <ul>
       <li class='li-inline nav-item'><a href='/'>Home</a></li>
-      <li class='li-inline nav-item'><a href='/profile'>Dashboard</a></li>
+      <li class='li-inline nav-item'><a href='/profile'>Profile</a></li>
+      {{#if loggedIn}}
+        <li class='li-inline nav-item'><a id="logout-link" href='#'>Logout</a></li>
+        <script src="/js/logout.js"></script>
+      {{else}}
+        <li class='li-inline nav-item'><a href='/login'>Login</a></li>
 
-    {{#if loggedIn}}
-      <li class='li-inline nav-item'><a href='#' id ="logout-link">Logout</a></li>
-    {{else}}
-      <li class='li-inline nav-item'><a href='/login'>Login</a></li>
-    {{/if}}
+      {{/if}}
     </ul>
   </nav>
 </header>
-
-{{#if loggedIn}}
-<script src="/js/logout.js"></script>
-{{/if}}

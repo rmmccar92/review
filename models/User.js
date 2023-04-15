@@ -76,14 +76,16 @@ const userSchema = new Schema(
       required: true,
       minlength: 8,
     },
-    peeps: {
-      type: Schema.Types.ObjectId,
-      ref: "Peep",
-    },
-    comments: {
-      type: Schema.Types.ObjectId,
-      ref: "Comment",
-    },
+    peeps: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Peep",
+      },
+    ],
+    // comments: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Comment",
+    // },
   },
   {
     toJSON: {

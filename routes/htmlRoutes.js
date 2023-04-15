@@ -1,34 +1,39 @@
 const router = require("express").Router();
-const axios = require("axios");
+const { Peep } = require("../models");
 
-async function getPeeps() {
-  return await axios.get("https://randomuser.me/api/");
-}
-// Oh boy everyone's favorite handlebars :D
 router.get("/", async (req, res) => {
-  // console.log("Landing page", req.session);
-  const num = Math.floor(Math.random() * 10 + 1);
-  let peepArr = [];
-  for (let i = 0; i < num; i++) {
-    const { data } = await getPeeps();
-    peepArr.push(data.results[0]);
+  //   console.log("Landing Page");
+  try {
+    // const peepData = await Peep.findAll();
+    //! ⬆️ Sequelize ⬇️ Mongoose
+    const peepData = await Peep.find();
+    // console.log("Data", peepData);
+    // const peeps = peepData.map((peep) => peep.get({ plain: true }));
+    //! ⬆️ Sequelize ⬇️ Mongoose
+    const peeps = peepData.map((peep) => peep.toObject());
+    // console.log("Peeps", peeps);
+    res.render("landing", { peeps: peeps, loggedIn: req.session.loggedIn });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
   }
-  // console.log("Any peeps?", peepArr);
-  // const peeps = peepArr.map((peep) => peep.get({ plain: true }));
-
-  res.render("landing", { peeps: peepArr, loggedIn: req.session.loggedIn });
 });
-module.exports = router;
-
-router.get("/profile", (req, res) => {
-  res.render("profile");
+router.get("/edit-peep/:id", async ({ params }, res) => {
+  try {
+    const peepData = await Peep.findByPk(params.id);
+    const peep = peepData.get({ plain: true });
+    res.render("edit-peep", { peep });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.get("/login", (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
   res.render("login");
 });
 
-router.get("/signup", (req, res) => {
-  res.render("signup");
-});
-// Congratulations you found the secret comment :D
+module.exports = router;
