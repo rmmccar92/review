@@ -103,7 +103,7 @@ const userController = {
           req.session.user_id = dbUserData._id;
           req.session.username = dbUserData.username;
           req.session.loggedIn = true;
-          console.log("Login user", req.session.username);
+          // console.log("Login user", req.session.username);
           res.json({ user: dbUserData, message: "You are now logged in!" });
         });
       })
@@ -111,6 +111,17 @@ const userController = {
         console.log(err);
         res.status(500).json(err);
       });
+  },
+
+  logoutUser(req, res) {
+    console.log("Logout user", req.session.username);
+    if (req.session.loggedIn) {
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
+    } else {
+      res.status(404).end();
+    }
   },
 };
 

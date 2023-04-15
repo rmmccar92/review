@@ -8,6 +8,7 @@ const {
   updateUser,
   deleteUser,
   loginUser,
+  logoutUser,
 } = require("../../controllers/user-controller");
 
 // /api/users
@@ -24,5 +25,7 @@ router.route("/:userId").get(getSingleUser).put(updateUser).delete(deleteUser);
 // router.put("/:userId", updateUser);
 // &
 // router.delete("/:userId", deleteUser);
+
+router.route("/logout").post(logoutUser);
 
 module.exports = router;

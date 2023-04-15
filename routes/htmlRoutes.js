@@ -6,7 +6,7 @@ async function getPeeps() {
 }
 // Oh boy everyone's favorite handlebars :D
 router.get("/", async (req, res) => {
-  console.log("Landing page", req.session);
+  // console.log("Landing page", req.session);
   const num = Math.floor(Math.random() * 10 + 1);
   let peepArr = [];
   for (let i = 0; i < num; i++) {
@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
   // console.log("Any peeps?", peepArr);
   // const peeps = peepArr.map((peep) => peep.get({ plain: true }));
 
-  res.render("landing", { peeps: peepArr });
+  res.render("landing", { peeps: peepArr, loggedIn: req.session.loggedIn });
 });
 module.exports = router;
 
