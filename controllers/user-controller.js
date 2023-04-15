@@ -1,5 +1,6 @@
 const { User, Thought } = require("../models");
-
+// In this pattern we've separated the controller methods into their own object these will be
+// exported and used in the routes.
 const userController = {
   // get all users
   getUsers(req, res) {
@@ -124,7 +125,5 @@ const userController = {
     }
   },
 };
-
+// Congratulations you found the secret comment :D
 module.exports = userController;
-// In this pattern we've separated the controller methods into their own object these will be
-// exported and used in the routes.
