@@ -1,0 +1,10 @@
+<div>
+  <button class='add-peeps'>Add peeps</button>
+  {{#each peeps}}
+    <h1>{{name.first}}</h1>
+    <h2>{{name.last}}</h2>
+    <p>{{email}}</p>
+
+  {{/each}}
+</div>
+<script src='/js/landing.js'></script>
