@@ -1,8 +1,9 @@
 const path = require("path");
 const express = require("express");
-// const session = require('express-session');
+const session = require("express-session");
 const exphbs = require("express-handlebars");
 const helpers = require("./utils/helpers");
+const { v4: uuidv4 } = require("uuid");
 
 const db = require("./config/connection");
 
@@ -28,6 +29,29 @@ const PORT = process.env.PORT || 3001;
 // };
 
 // app.use(session(sess));
+
+// This is how you can configure the session for use with your MongoDB database
+const MongoStore = require("connect-mongo");
+
+const sess = {
+  genid: (req) => {
+    return uuidv4();
+  },
+  secret: "super secret",
+  resave: true,
+  saveUninitialized: false,
+  cookie: { maxAge: 24 * 60 * 60 * 1000 },
+  store: MongoStore.create({
+    client: db.getClient(),
+    dbName: "demo_db",
+    collection: "sessions",
+    stringify: false,
+    autoRemove: "interval",
+    autoRemoveInterval: 10,
+  }),
+};
+
+app.use(session(sess));
 
 const hbs = exphbs.create({ helpers });
 

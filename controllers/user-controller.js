@@ -99,8 +99,13 @@ const userController = {
         if (!validPassword) {
           return res.status(400).json({ message: "Incorrect password!" });
         }
-
-        res.json({ user: dbUserData, message: "You are now logged in!" });
+        req.session.save(() => {
+          req.session.user_id = dbUserData._id;
+          req.session.username = dbUserData.username;
+          req.session.loggedIn = true;
+          console.log("Login user", req.session.username);
+          res.json({ user: dbUserData, message: "You are now logged in!" });
+        });
       })
       .catch((err) => {
         console.log(err);
